@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-white antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* Glass morphism components */
+  .glass-card {
+    @apply bg-glass-background backdrop-blur-md rounded-2xl border border-glass-border shadow-2xl;
+    box-shadow: 0 8px 32px 0 var(--tw-shadow-color);
+  }
+
+  .glass-button {
+    @apply glass-card px-6 py-3 transition-all duration-300 active:scale-95;
+    @apply hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-accent;
+  }
+
+  .glass-input {
+    @apply glass-card px-4 py-3 bg-transparent border-none outline-none;
+    @apply placeholder:text-white/50 focus:ring-2 focus:ring-accent;
+  }
+
+  /* Tarot specific components */
+  .card-flip-container {
+    perspective: 1000px;
+  }
+
+  .card-flip {
+    transform-style: preserve-3d;
+    transition: transform 0.6s ease-out;
+  }
+
+  .card-flipped {
+    transform: rotateY(180deg);
+  }
+
+  .card-front, .card-back {
+    backface-visibility: hidden;
+    position: absolute;
+    inset: 0;
+  }
+
+  .card-back {
+    transform: rotateY(180deg);
+  }
+
+  /* Loading animations */
+  .pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes pulse-glow {
+    from { box-shadow: 0 0 20px rgba(107, 70, 193, 0.3); }
+    to { box-shadow: 0 0 30px rgba(107, 70, 193, 0.6); }
+  }
+
+  /* Responsive utilities */
+  .safe-area-top {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.3s ease-out;
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.3s ease-out;
+  }
+}
