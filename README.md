@@ -161,16 +161,22 @@ npm run dev
 ### 3. Настройка Frontend
 
 ```bash
-cd ../frontend
+# Из корня проекта (рекомендуется)
+npm run install:all    # Установит зависимости для всего проекта
 
-# Установка зависимостей
+# Или из папки frontend
+cd frontend
 npm install
 
-# Настройка переменных окружения
-cp .env.example .env
+# Настройка переменных окружения (если нужно)
+# Создайте frontend/.env файл:
 # VITE_API_URL=http://localhost:3000
 
-# Запуск в режиме разработки
+# Запуск в режиме разработки (из корня)
+npm run dev
+
+# Или из папки frontend
+cd frontend
 npm run dev
 ```
 

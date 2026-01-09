@@ -1,0 +1,32 @@
+{
+  "name": "tarot-web",
+  "version": "1.0.0",
+  "description": "Tarot Web App - React + Vite + TypeScript application for Telegram",
+  "private": true,
+  "workspaces": [
+    "frontend"
+  ],
+  "scripts": {
+    "dev": "cd frontend && npm run dev",
+    "build": "cd frontend && npm run build",
+    "preview": "cd frontend && npm run preview",
+    "lint": "cd frontend && npm run lint",
+    "type-check": "cd frontend && npm run type-check",
+    "test": "cd frontend && npm run test",
+    "install:all": "npm install && cd frontend && npm install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mrdudekowski/tarot-web.git"
+  },
+  "keywords": [
+    "tarot",
+    "react",
+    "vite",
+    "typescript",
+    "telegram",
+    "web-app"
+  ],
+  "author": "",
+  "license": "MIT"
+}
