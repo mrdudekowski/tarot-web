@@ -54,19 +54,19 @@
       Назад к типам
     </button>
 
-    <!-- Описание категории -->
-    <div
-      v-if="description"
+    <!-- Блок описания категории -->
+    <div 
+      v-if="description" 
       v-motion
       :initial="{ opacity: 0, y: -10 }"
       :enter="{ opacity: 1, y: 0 }"
       :transition="{ duration: 0.3 }"
       class="mb-4 p-3 bg-loona-card-gradient rounded-xl border border-loona-purple"
     >
-      <h2 class="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-loona-neon to-loona-glow-purple neon-text mb-2">
+      <h2 class="text-lg font-bold bg-clip-text text-transparent bg-loona-neon-gradient neon-text">
         {{ description.title }}
       </h2>
-      <p class="text-loona-text-secondary text-sm leading-relaxed">
+      <p class="text-sm text-loona-text-secondary mt-1">
         {{ description.description }}
       </p>
     </div>
@@ -127,6 +127,38 @@ import GridCard from '../components/cards/GridCard.vue'
 
 const activeTab = ref('major')
 const activeMinorType = ref(null)
+
+const categoryDescriptions = {
+  major: {
+    title: 'Старшие Арканы',
+    description: 'Старшие Арканы — это фундаментальные архетипы и ключевые жизненные уроки. Их 22 карты символизируют основные этапы духовного пути, от начала (Шут) до завершения (Мир).'
+  },
+  cups: {
+    title: 'Кубки',
+    description: 'Кубки символизируют эмоции, чувства и внутренние переживания. Эта масть связана с интуицией, любовью и духовным ростом. Карты Кубков часто указывают на отношения и эмоциональные состояния.'
+  },
+  wands: {
+    title: 'Жезлы',
+    description: 'Жезлы представляют энергию, творчество и волю. Эта масть связана с действиями, начинаниями и личной силой. Карты Жезлов часто говорят о новых проектах и внутренней мотивации.'
+  },
+  pentacles: {
+    title: 'Пентакли',
+    description: 'Пентакли отвечают за материальный мир, финансы и физическое здоровье. Эта масть связана с практичностью, стабильностью и земными делами. Карты Пентаклей часто касаются работы и ресурсов.'
+  },
+  swords: {
+    title: 'Мечи',
+    description: 'Мечи символизируют разум, мышление и интеллект. Эта масть связана с конфликтами, решениями и ясностью ума. Карты Мечей часто указывают на ментальные вызовы и необходимость принятия решений.'
+  }
+}
+
+const description = computed(() => {
+  if (activeTab.value === 'major') {
+    return categoryDescriptions.major
+  } else if (activeTab.value === 'minor' && activeMinorType.value) {
+    return categoryDescriptions[activeMinorType.value]
+  }
+  return null
+})
 
 const viewCard = (card) => {
   console.log('View card:', card)
@@ -251,41 +283,6 @@ const minorSuits = [
     description: 'Разум и конфликты'
   }
 ]
-
-const categoryDescriptions = {
-  major: {
-    title: 'Старшие Арканы',
-    description: 'Старшие Арканы — это фундаментальные архетипы и ключевые жизненные уроки. Их 22 карты символизируют основные этапы духовного пути, от начала (Шут) до завершения (Мир).'
-  },
-  cups: {
-    title: 'Кубки',
-    description: 'Кубки символизируют эмоции, чувства и внутренние переживания. Эта масть связана с интуицией, любовью и духовным ростом. Карты Кубков часто указывают на отношения и эмоциональные состояния.'
-  },
-  wands: {
-    title: 'Жезлы',
-    description: 'Жезлы представляют энергию, творчество и действие. Эта масть связана с амбициями, энтузиазмом и стремлением к достижению целей. Карты Жезлов часто указывают на проекты, идеи и движение вперед.'
-  },
-  pentacles: {
-    title: 'Пентакли',
-    description: 'Пентакли символизируют материальный мир, финансы и физическую реальность. Эта масть связана с работой, здоровьем, изобилием и практическими вопросами жизни. Карты Пентаклей часто указывают на ресурсы и материальные ценности.'
-  },
-  swords: {
-    title: 'Мечи',
-    description: 'Мечи представляют разум, интеллект и конфликты. Эта масть связана с мыслями, решениями, коммуникацией и борьбой. Карты Мечей часто указывают на необходимость ясности мышления и преодоления трудностей.'
-  }
-}
-
-const description = computed(() => {
-  if (activeTab.value === 'major') {
-    return categoryDescriptions.major
-  }
-  
-  if (activeTab.value === 'minor' && activeMinorType.value) {
-    return categoryDescriptions[activeMinorType.value] || null
-  }
-  
-  return null
-})
 
 const filteredCards = computed(() => {
   if (activeTab.value === 'major') {
