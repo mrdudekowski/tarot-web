@@ -17,24 +17,24 @@
     </div>
 
     <!-- Контейнер слайдера -->
-    <div class="relative flex-1 flex items-center min-h-0 overflow-hidden">
+    <div class="relative flex-1 flex items-center justify-center min-h-0">
       <div
         ref="sliderContainer"
-        class="overflow-hidden relative w-full h-full"
+        class="overflow-hidden relative w-full h-full flex items-center justify-center"
         @touchstart="handleTouchStart"
         @touchmove="handleTouchMove"
         @touchend="handleTouchEnd"
       >
         <div
-          class="flex transition-transform duration-300 ease-out h-full"
+          class="flex transition-transform duration-300 ease-out h-full w-full"
           :style="{ transform: `translateX(-${currentSlide * 100}%)` }"
         >
           <div
             v-for="(reading, index) in readingTypes"
             :key="reading.type"
-            class="w-full flex-shrink-0 px-2 h-full flex items-center justify-center"
+            class="w-full flex-shrink-0 px-4 h-full flex items-center justify-center"
           >
-            <div class="w-full h-full flex items-center justify-center overflow-hidden">
+            <div class="w-full h-full flex items-center justify-center">
               <div class="reading-card-wrapper">
                 <GridCard
                   :image="reading.image"
@@ -51,21 +51,21 @@
     </div>
 
     <!-- Индикаторы слайдов -->
-    <div class="flex justify-center gap-2 mt-2 flex-shrink-0">
+    <div class="slide-indicators flex justify-center gap-2 mt-2 flex-shrink-0">
       <button
         v-for="(reading, index) in readingTypes"
         :key="`indicator-${index}`"
-        @click="goToSlide(index)"
-        class="w-2 h-2 rounded-full transition-all duration-300"
-        :class="currentSlide === index ? 'bg-loona-neon shadow-neon' : 'bg-loona-purple opacity-50'"
+        class="slide-indicator rounded-full transition-all duration-300"
+        :class="currentSlide === index ? 'bg-loona-neon' : 'bg-loona-purple opacity-50'"
         :aria-label="`Перейти к ${reading.title}`"
+        @click="goToSlide(index)"
       />
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, nextTick } from 'vue'
 import GridCard from '../components/cards/GridCard.vue'
 
 const currentSlide = ref(0)
@@ -78,22 +78,22 @@ let offsetX = 0
 
 const readingTypes = [
   {
-    type: 'card-of-day',
+    type: 'daily',
     title: 'Карта дня',
     description: 'Ваша карта на сегодня — простое и мудрое послание',
-    image: '/images/layouts/card-of-the-day.webp'
+    image: '/images/cards/reading_cards/day.webp'
   },
   {
     type: 'question',
     title: 'Расклад по вопросу',
     description: 'Задайте вопрос — получите ответ от Вселенной',
-    image: '/images/layouts/question-layout.webp'
+    image: '/images/cards/reading_cards/question.webp'
   },
   {
     type: 'monthly',
     title: 'Расклад на месяц',
     description: 'Прогноз на 30 дней: ключевые события и советы',
-    image: '/images/layouts/monthly-layout.webp'
+    image: '/images/cards/reading_cards/month.webp'
   }
 ]
 
@@ -136,7 +136,27 @@ const startReading = (type) => {
   console.log('Начать расклад:', type)
 }
 
+const resetScroll = () => {
+  // Сбрасываем скролл несколькими способами для максимальной совместимости
+  window.scrollTo(0, 0)
+  document.documentElement.scrollTop = 0
+  document.body.scrollTop = 0
+}
+
 onMounted(() => {
+  // Сбрасываем сразу
+  resetScroll()
+  
+  // Сбрасываем после завершения DOM рендера
+  nextTick(() => {
+    resetScroll()
+  })
+  
+  // Сбрасываем после завершения transition анимации (300ms + запас 50ms)
+  setTimeout(() => {
+    resetScroll()
+  }, 350)
+  
   // Предотвращаем вертикальный скролл
   document.body.style.overflow = 'hidden'
 })
@@ -165,5 +185,19 @@ onUnmounted(() => {
 /* Ограничиваем высоту контейнера изображения, чтобы текст поместился */
 .reading-card-wrapper :deep(div[class*="aspect"]) {
   max-height: calc(100vh - 260px) !important;
+}
+
+/* Индикаторы слайдов - размер 24px */
+.slide-indicators .slide-indicator {
+  width: 24px !important;
+  height: 24px !important;
+  min-width: 24px !important;
+  min-height: 24px !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+}
+
+.slide-indicators .slide-indicator.bg-loona-neon {
+  box-shadow: 0 0 6px #e600ff !important;
 }
 </style>

@@ -42,6 +42,7 @@
 </template>
 
 <script setup>
+import { onMounted, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
 import GradientButton from '../components/ui/GradientButton.vue'
 
@@ -50,4 +51,26 @@ const router = useRouter()
 const startReading = () => {
   router.push('/reading')
 }
+
+const resetScroll = () => {
+  // Сбрасываем скролл несколькими способами для максимальной совместимости
+  window.scrollTo(0, 0)
+  document.documentElement.scrollTop = 0
+  document.body.scrollTop = 0
+}
+
+onMounted(() => {
+  // Сбрасываем сразу
+  resetScroll()
+  
+  // Сбрасываем после завершения DOM рендера
+  nextTick(() => {
+    resetScroll()
+  })
+  
+  // Сбрасываем после завершения transition анимации (300ms + запас 50ms)
+  setTimeout(() => {
+    resetScroll()
+  }, 350)
+})
 </script>
