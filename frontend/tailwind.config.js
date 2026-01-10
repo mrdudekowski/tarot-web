@@ -28,6 +28,10 @@ export default {
         'loona-gradient': 'linear-gradient(145deg, #1a0d3e 0%, #0d0d2b 100%)',
         'loona-neon-gradient': 'linear-gradient(145deg, #e600ff 0%, #9370db 100%)',
         'loona-orange-gradient': 'linear-gradient(145deg, #ff6b35 0%, #ff9e00 100%)',
+        'loona-card-gradient': 'linear-gradient(145deg, #1a0d3e 0%, #0d0d2b 100%)',
+      },
+      backgroundColor: {
+        'loona-card-bg': 'rgba(13, 13, 43, 0.5)',
       },
       boxShadow: {
         'neon': '0 0 10px #e600ff, 0 0 20px #9370db',
