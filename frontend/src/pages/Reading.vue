@@ -66,7 +66,10 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted, nextTick } from 'vue'
+import { useRouter } from 'vue-router'
 import GridCard from '../components/cards/GridCard.vue'
+
+const router = useRouter()
 
 const currentSlide = ref(0)
 const sliderContainer = ref(null)
@@ -133,7 +136,7 @@ const handleTouchEnd = () => {
 }
 
 const startReading = (type) => {
-  console.log('Начать расклад:', type)
+  router.push(`/reading/result?type=${type}`)
 }
 
 const resetScroll = () => {
