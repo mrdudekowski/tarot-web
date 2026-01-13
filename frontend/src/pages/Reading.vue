@@ -1,130 +1,206 @@
 <template>
-  <div class="min-h-screen px-4 py-6">
+  <div class="h-screen overflow-hidden flex flex-col px-2 py-2 pb-24">
+    <!-- Заголовок -->
     <div
       v-motion
       :initial="{ opacity: 0, y: -20 }"
       :enter="{ opacity: 1, y: 0 }"
       :transition="{ duration: 0.5 }"
-      class="mb-6"
+      class="mb-2 text-center flex-shrink-0"
     >
-      <h1 class="text-2xl font-press-start mb-2 bg-clip-text text-transparent bg-gradient-to-r from-loona-neon to-loona-glow-purple neon-text">
+      <h1 class="text-lg font-press-start mb-1 bg-clip-text text-transparent bg-gradient-to-r from-loona-neon to-loona-glow-purple neon-text">
         Гадание на Таро
       </h1>
-      <p class="text-loona-text-secondary text-sm mb-4">
-        Выберите расклад
+      <p class="text-loona-text-secondary text-xs">
+        Свайпайте или нажмите на карточку
       </p>
     </div>
 
-    <div v-if="!isReadingActive" class="space-y-4 pb-24">
+    <!-- Контейнер слайдера -->
+    <div class="relative flex-1 flex items-center justify-center min-h-0">
       <div
-        v-for="(spread, index) in spreads"
-        :key="spread.id"
-        v-motion
-        :initial="{ opacity: 0, x: -20 }"
-        :enter="{ opacity: 1, x: 0 }"
-        :transition="{ duration: 0.4, delay: index * 0.1 }"
+        ref="sliderContainer"
+        class="overflow-hidden relative w-full h-full flex items-center justify-center"
+        @touchstart="handleTouchStart"
+        @touchmove="handleTouchMove"
+        @touchend="handleTouchEnd"
       >
-        <GridCard
-          :title="spread.name"
-          :description="spread.description"
-          :delay="index * 0.1"
-          @click="startSpread(spread)"
-        />
+        <div
+          class="flex transition-transform duration-300 ease-out h-full w-full"
+          :style="{ transform: `translateX(-${currentSlide * 100}%)` }"
+        >
+          <div
+            v-for="(reading, index) in readingTypes"
+            :key="reading.type"
+            class="w-full flex-shrink-0 px-4 h-full flex items-center justify-center"
+          >
+            <div class="w-full h-full flex items-center justify-center">
+              <div class="reading-card-wrapper">
+                <GridCard
+                  :image="reading.image"
+                  :title="reading.title"
+                  :description="reading.description"
+                  :delay="index * 0.1"
+                  @click="startReading(reading.type)"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div v-else class="pb-24">
-      <div class="text-center mb-6">
-        <h2 class="text-xl font-bold text-loona-neon mb-2">
-          {{ currentSpread?.name }}
-        </h2>
-        <p class="text-loona-text-secondary text-sm">
-          {{ spreadInstructions }}
-        </p>
-      </div>
-
-      <div class="flex flex-col items-center space-y-4">
-        <TarotCard
-          v-for="(card, index) in drawnCards"
-          :key="index"
-          :card="card"
-          :delay="index * 0.2"
-        />
-      </div>
-
-      <div class="mt-8 flex justify-center">
-        <GradientButton
-          variant="outline"
-          @click="resetReading"
-        >
-          Новое гадание
-        </GradientButton>
-      </div>
+    <!-- Индикаторы слайдов -->
+    <div class="slide-indicators flex justify-center gap-2 mt-2 flex-shrink-0">
+      <button
+        v-for="(reading, index) in readingTypes"
+        :key="`indicator-${index}`"
+        class="slide-indicator rounded-full transition-all duration-300"
+        :class="currentSlide === index ? 'bg-loona-neon' : 'bg-loona-purple opacity-50'"
+        :aria-label="`Перейти к ${reading.title}`"
+        @click="goToSlide(index)"
+      />
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import TarotCard from '../components/cards/TarotCard.vue'
+import { ref, onMounted, onUnmounted, nextTick } from 'vue'
+import { useRouter } from 'vue-router'
 import GridCard from '../components/cards/GridCard.vue'
-import GradientButton from '../components/ui/GradientButton.vue'
 
-const isReadingActive = ref(false)
-const currentSpread = ref(null)
-const drawnCards = ref([])
-const spreadInstructions = ref('')
+const router = useRouter()
 
-const spreads = [
+const currentSlide = ref(0)
+const sliderContainer = ref(null)
+
+let startX = 0
+let currentX = 0
+let isDragging = false
+let offsetX = 0
+
+const readingTypes = [
   {
-    id: 1,
-    name: 'Прошлое, Настоящее, Будущее',
-    description: 'Три карты покажут путь вашей судьбы',
-    cardCount: 3
+    type: 'daily',
+    title: 'Карта дня',
+    description: 'Ваша карта на сегодня — простое и мудрое послание',
+    image: '/images/cards/reading_cards/day.webp'
   },
   {
-    id: 2,
-    name: 'Кельтский Крест',
-    description: 'Глубокий анализ ситуации',
-    cardCount: 10
+    type: 'question',
+    title: 'Расклад по вопросу',
+    description: 'Задайте вопрос — получите ответ от Вселенной',
+    image: '/images/cards/reading_cards/question.webp'
   },
   {
-    id: 3,
-    name: 'Одна Карта',
-    description: 'Быстрый ответ на вопрос',
-    cardCount: 1
+    type: 'monthly',
+    title: 'Расклад на месяц',
+    description: 'Прогноз на 30 дней: ключевые события и советы',
+    image: '/images/cards/reading_cards/month.webp'
   }
 ]
 
-const startSpread = (spread) => {
-  currentSpread.value = spread
-  isReadingActive.value = true
-  spreadInstructions.value = 'Сосредоточьтесь на своем вопросе...'
+const goToSlide = (index) => {
+  if (index >= 0 && index < readingTypes.length) {
+    currentSlide.value = index
+  }
+}
+
+const handleTouchStart = (e) => {
+  startX = e.touches[0].clientX
+  isDragging = true
+}
+
+const handleTouchMove = (e) => {
+  if (!isDragging) return
+  e.preventDefault()
+  currentX = e.touches[0].clientX
+  offsetX = currentX - startX
+}
+
+const handleTouchEnd = () => {
+  if (!isDragging) return
   
+  const threshold = 50
+  
+  if (Math.abs(offsetX) > threshold) {
+    if (offsetX > 0 && currentSlide.value > 0) {
+      goToSlide(currentSlide.value - 1)
+    } else if (offsetX < 0 && currentSlide.value < readingTypes.length - 1) {
+      goToSlide(currentSlide.value + 1)
+    }
+  }
+  
+  isDragging = false
+  offsetX = 0
+}
+
+const startReading = (type) => {
+  router.push(`/reading/result?type=${type}`)
+}
+
+const resetScroll = () => {
+  // Сбрасываем скролл несколькими способами для максимальной совместимости
+  window.scrollTo(0, 0)
+  document.documentElement.scrollTop = 0
+  document.body.scrollTop = 0
+}
+
+onMounted(() => {
+  // Сбрасываем сразу
+  resetScroll()
+  
+  // Сбрасываем после завершения DOM рендера
+  nextTick(() => {
+    resetScroll()
+  })
+  
+  // Сбрасываем после завершения transition анимации (300ms + запас 50ms)
   setTimeout(() => {
-    drawCards(spread.cardCount)
-  }, 1000)
-}
-
-const drawCards = (count) => {
-  const sampleCards = [
-    { name: 'The Fool', description: 'Начало нового пути', image: '/images/cards/major/00-TheFool.webp' },
-    { name: 'The Magician', description: 'Мастерство и действие', image: '/images/cards/major/01-TheMagician.webp' },
-    { name: 'The High Priestess', description: 'Интуиция и тайна', image: '/images/cards/major/02-TheHighPriestess.webp' },
-  ]
+    resetScroll()
+  }, 350)
   
-  drawnCards.value = Array.from({ length: count }, (_, i) => ({
-    ...sampleCards[i % sampleCards.length],
-    id: i
-  }))
-  
-  spreadInstructions.value = 'Ваши карты готовы'
-}
+  // Предотвращаем вертикальный скролл
+  document.body.style.overflow = 'hidden'
+})
 
-const resetReading = () => {
-  isReadingActive.value = false
-  currentSpread.value = null
-  drawnCards.value = []
-  spreadInstructions.value = ''
-}
+onUnmounted(() => {
+  document.body.style.overflow = ''
+})
 </script>
+
+<style scoped>
+.reading-card-wrapper {
+  width: 100%;
+  max-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Ограничиваем максимальную высоту карточки, чтобы она помещалась на экране 360x640 */
+.reading-card-wrapper :deep(.bg-loona-card-gradient) {
+  max-height: calc(100vh - 180px) !important;
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+/* Ограничиваем высоту контейнера изображения, чтобы текст поместился */
+.reading-card-wrapper :deep(div[class*="aspect"]) {
+  max-height: calc(100vh - 260px) !important;
+}
+
+/* Индикаторы слайдов - размер 24px */
+.slide-indicators .slide-indicator {
+  width: 24px !important;
+  height: 24px !important;
+  min-width: 24px !important;
+  min-height: 24px !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+}
+
+.slide-indicators .slide-indicator.bg-loona-neon {
+  box-shadow: 0 0 6px #e600ff !important;
+}
+</style>

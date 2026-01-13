@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../pages/Home.vue'
 import Encyclopedia from '../pages/Encyclopedia.vue'
 import Reading from '../pages/Reading.vue'
+import ReadingResult from '../pages/ReadingResult.vue'
 import Collection from '../pages/Collection.vue'
 import Profile from '../pages/Profile.vue'
 
@@ -31,6 +32,14 @@ const routes = [
     }
   },
   {
+    path: '/reading/result',
+    name: 'ReadingResult',
+    component: ReadingResult,
+    meta: {
+      transition: 'fade'
+    }
+  },
+  {
     path: '/collection',
     name: 'Collection',
     component: Collection,
@@ -49,7 +58,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes
 })
 

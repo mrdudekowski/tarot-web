@@ -1,19 +1,21 @@
 <template>
   <div
     v-motion
-    :initial="{ scale: 0.9, opacity: 0 }"
-    :enter="{ scale: 1, opacity: 1 }"
-    :transition="{ duration: 0.3, delay }"
-    class="rounded-[20px] overflow-hidden border border-loona-border shadow-card bg-loona-gradient cursor-pointer transition-all duration-200 hover:scale-105 active:scale-95 aspect-[320/200]"
+    :initial="{ opacity: 0, y: 20 }"
+    :enter="{ opacity: 1, y: 0 }"
+    :transition="{ duration: 0.5, delay }"
+    class="bg-loona-card-gradient border border-loona-purple shadow-neon rounded-2xl overflow-hidden cursor-pointer transition-all duration-200 hover:scale-105 active:scale-95"
     :class="{ 'ring-2 ring-loona-neon': active }"
     @click="$emit('click', $event)"
   >
-    <img
-      v-if="image"
-      :src="image"
-      :alt="title || 'Card'"
-      class="w-full h-32 object-cover"
-    />
+    <div class="aspect-[3/4] flex items-center justify-center p-2 bg-loona-card-bg">
+      <img
+        v-if="image"
+        :src="image"
+        :alt="title || 'Card'"
+        class="w-full h-full object-contain"
+      />
+    </div>
     <div class="p-3">
       <h3
         v-if="title"

@@ -81,7 +81,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, nextTick } from 'vue'
 
 const stats = ref({
   totalReadings: 0,
@@ -89,7 +89,27 @@ const stats = ref({
   activeDeck: 'Классическая'
 })
 
+const resetScroll = () => {
+  // Сбрасываем скролл несколькими способами для максимальной совместимости
+  window.scrollTo(0, 0)
+  document.documentElement.scrollTop = 0
+  document.body.scrollTop = 0
+}
+
 onMounted(() => {
+  // Сбрасываем сразу
+  resetScroll()
+  
+  // Сбрасываем после завершения DOM рендера
+  nextTick(() => {
+    resetScroll()
+  })
+  
+  // Сбрасываем после завершения transition анимации (300ms + запас 50ms)
+  setTimeout(() => {
+    resetScroll()
+  }, 350)
+  
   stats.value = {
     totalReadings: 5,
     cardsViewed: 12,
