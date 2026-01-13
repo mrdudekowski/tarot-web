@@ -124,6 +124,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import GridCard from '../components/cards/GridCard.vue'
+import { getImagePath } from '@/utils/imagePath.js'
 
 const activeTab = ref('major')
 const activeMinorType = ref(null)
@@ -172,28 +173,28 @@ const handleTabChange = (tab) => {
 }
 
 const majorArcana = [
-  { id: 0, name: 'The Fool', image: '/images/cards/major/00-TheFool.webp', shortDescription: 'Начало пути' },
-  { id: 1, name: 'The Magician', image: '/images/cards/major/01-TheMagician.webp', shortDescription: 'Мастерство' },
-  { id: 2, name: 'The High Priestess', image: '/images/cards/major/02-TheHighPriestess.webp', shortDescription: 'Интуиция' },
-  { id: 3, name: 'The Empress', image: '/images/cards/major/03-TheEmpress.webp', shortDescription: 'Изобилие' },
-  { id: 4, name: 'The Emperor', image: '/images/cards/major/04-TheEmperor.webp', shortDescription: 'Власть' },
-  { id: 5, name: 'The Hierophant', image: '/images/cards/major/05-TheHierophant.webp', shortDescription: 'Традиция' },
-  { id: 6, name: 'The Lovers', image: '/images/cards/major/06-TheLovers.webp', shortDescription: 'Любовь' },
-  { id: 7, name: 'The Chariot', image: '/images/cards/major/07-TheChariot.webp', shortDescription: 'Победа' },
-  { id: 8, name: 'Strength', image: '/images/cards/major/08-Strength.webp', shortDescription: 'Сила' },
-  { id: 9, name: 'The Hermit', image: '/images/cards/major/09-TheHermit.webp', shortDescription: 'Поиск истины' },
-  { id: 10, name: 'Wheel of Fortune', image: '/images/cards/major/10-WheelOfFortune.webp', shortDescription: 'Судьба' },
-  { id: 11, name: 'Justice', image: '/images/cards/major/11-Justice.webp', shortDescription: 'Справедливость' },
-  { id: 12, name: 'The Hanged Man', image: '/images/cards/major/12-TheHangedMan.webp', shortDescription: 'Жертва' },
-  { id: 13, name: 'Death', image: '/images/cards/major/13-Death.webp', shortDescription: 'Трансформация' },
-  { id: 14, name: 'Temperance', image: '/images/cards/major/14-Temperance.webp', shortDescription: 'Баланс' },
-  { id: 15, name: 'The Devil', image: '/images/cards/major/15-TheDevil.webp', shortDescription: 'Искушение' },
-  { id: 16, name: 'The Tower', image: '/images/cards/major/16-TheTower.webp', shortDescription: 'Разрушение' },
-  { id: 17, name: 'The Star', image: '/images/cards/major/17-TheStar.webp', shortDescription: 'Надежда' },
-  { id: 18, name: 'The Moon', image: '/images/cards/major/18-TheMoon.webp', shortDescription: 'Иллюзии' },
-  { id: 19, name: 'The Sun', image: '/images/cards/major/19-TheSun.webp', shortDescription: 'Радость' },
-  { id: 20, name: 'Judgement', image: '/images/cards/major/20-Judgement.webp', shortDescription: 'Возрождение' },
-  { id: 21, name: 'The World', image: '/images/cards/major/21-TheWorld.webp', shortDescription: 'Завершение' }
+  { id: 0, name: 'The Fool', image: getImagePath('images/cards/major/00-TheFool.webp'), shortDescription: 'Начало пути' },
+  { id: 1, name: 'The Magician', image: getImagePath('images/cards/major/01-TheMagician.webp'), shortDescription: 'Мастерство' },
+  { id: 2, name: 'The High Priestess', image: getImagePath('images/cards/major/02-TheHighPriestess.webp'), shortDescription: 'Интуиция' },
+  { id: 3, name: 'The Empress', image: getImagePath('images/cards/major/03-TheEmpress.webp'), shortDescription: 'Изобилие' },
+  { id: 4, name: 'The Emperor', image: getImagePath('images/cards/major/04-TheEmperor.webp'), shortDescription: 'Власть' },
+  { id: 5, name: 'The Hierophant', image: getImagePath('images/cards/major/05-TheHierophant.webp'), shortDescription: 'Традиция' },
+  { id: 6, name: 'The Lovers', image: getImagePath('images/cards/major/06-TheLovers.webp'), shortDescription: 'Любовь' },
+  { id: 7, name: 'The Chariot', image: getImagePath('images/cards/major/07-TheChariot.webp'), shortDescription: 'Победа' },
+  { id: 8, name: 'Strength', image: getImagePath('images/cards/major/08-Strength.webp'), shortDescription: 'Сила' },
+  { id: 9, name: 'The Hermit', image: getImagePath('images/cards/major/09-TheHermit.webp'), shortDescription: 'Поиск истины' },
+  { id: 10, name: 'Wheel of Fortune', image: getImagePath('images/cards/major/10-WheelOfFortune.webp'), shortDescription: 'Судьба' },
+  { id: 11, name: 'Justice', image: getImagePath('images/cards/major/11-Justice.webp'), shortDescription: 'Справедливость' },
+  { id: 12, name: 'The Hanged Man', image: getImagePath('images/cards/major/12-TheHangedMan.webp'), shortDescription: 'Жертва' },
+  { id: 13, name: 'Death', image: getImagePath('images/cards/major/13-Death.webp'), shortDescription: 'Трансформация' },
+  { id: 14, name: 'Temperance', image: getImagePath('images/cards/major/14-Temperance.webp'), shortDescription: 'Баланс' },
+  { id: 15, name: 'The Devil', image: getImagePath('images/cards/major/15-TheDevil.webp'), shortDescription: 'Искушение' },
+  { id: 16, name: 'The Tower', image: getImagePath('images/cards/major/16-TheTower.webp'), shortDescription: 'Разрушение' },
+  { id: 17, name: 'The Star', image: getImagePath('images/cards/major/17-TheStar.webp'), shortDescription: 'Надежда' },
+  { id: 18, name: 'The Moon', image: getImagePath('images/cards/major/18-TheMoon.webp'), shortDescription: 'Иллюзии' },
+  { id: 19, name: 'The Sun', image: getImagePath('images/cards/major/19-TheSun.webp'), shortDescription: 'Радость' },
+  { id: 20, name: 'Judgement', image: getImagePath('images/cards/major/20-Judgement.webp'), shortDescription: 'Возрождение' },
+  { id: 21, name: 'The World', image: getImagePath('images/cards/major/21-TheWorld.webp'), shortDescription: 'Завершение' }
 ]
 
 const getMinorCardName = (suit, number) => {
@@ -237,7 +238,7 @@ const generateMinorArcanaBySuit = (suit) => {
   
   for (let number = 1; number <= 14; number++) {
     const suitCapitalized = suit.charAt(0).toUpperCase() + suit.slice(1)
-    const imagePath = `/images/cards/minor/${suit}/${suitCapitalized}${String(number).padStart(2, '0')}.webp`
+    const imagePath = getImagePath(`images/cards/minor/${suit}/${suitCapitalized}${String(number).padStart(2, '0')}.webp`)
     
     cards.push({
       id: `${suit}-${number}`,
@@ -261,25 +262,25 @@ const minorSuits = [
   { 
     id: 'cups', 
     name: 'Кубки', 
-    icon: '/images/cards/minor/cups/Cups01.webp',
+    icon: getImagePath('images/cards/minor/cups/Cups01.webp'),
     description: 'Эмоции и чувства'
   },
   { 
     id: 'wands', 
     name: 'Жезлы', 
-    icon: '/images/cards/minor/wands/Wands01.webp',
+    icon: getImagePath('images/cards/minor/wands/Wands01.webp'),
     description: 'Энергия и действия'
   },
   { 
     id: 'pentacles', 
     name: 'Пентакли', 
-    icon: '/images/cards/minor/pentacles/Pentacles01.webp',
+    icon: getImagePath('images/cards/minor/pentacles/Pentacles01.webp'),
     description: 'Материя и финансы'
   },
   { 
     id: 'swords', 
     name: 'Мечи', 
-    icon: '/images/cards/minor/swords/Swords01.webp',
+    icon: getImagePath('images/cards/minor/swords/Swords01.webp'),
     description: 'Разум и конфликты'
   }
 ]

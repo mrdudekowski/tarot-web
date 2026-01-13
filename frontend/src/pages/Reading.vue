@@ -68,6 +68,7 @@
 import { ref, onMounted, onUnmounted, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
 import GridCard from '../components/cards/GridCard.vue'
+import { getImagePath } from '@/utils/imagePath.js'
 
 const router = useRouter()
 
@@ -84,19 +85,19 @@ const readingTypes = [
     type: 'daily',
     title: 'Карта дня',
     description: 'Ваша карта на сегодня — простое и мудрое послание',
-    image: '/images/cards/reading_cards/day.webp'
+    image: getImagePath('images/cards/reading_cards/day.webp')
   },
   {
     type: 'question',
     title: 'Расклад по вопросу',
     description: 'Задайте вопрос — получите ответ от Вселенной',
-    image: '/images/cards/reading_cards/question.webp'
+    image: getImagePath('images/cards/reading_cards/question.webp')
   },
   {
     type: 'monthly',
     title: 'Расклад на месяц',
     description: 'Прогноз на 30 дней: ключевые события и советы',
-    image: '/images/cards/reading_cards/month.webp'
+    image: getImagePath('images/cards/reading_cards/month.webp')
   }
 ]
 

@@ -1,32 +1,33 @@
 import { shuffleArray } from '../utils/shuffle.js'
+import { getImagePath } from '../utils/imagePath.js'
 
 /**
  * Старшие арканы Таро (22 карты)
  * Путь к изображениям: /images/cards/major/{id}.webp
  */
 const MAJOR_ARCANA = [
-  { id: '00', name: 'Шут', image: '/images/cards/major/00-TheFool.webp', description: 'Начало пути, невинность, спонтанность' },
-  { id: '01', name: 'Маг', image: '/images/cards/major/01-TheMagician.webp', description: 'Мастерство, воля, концентрация' },
-  { id: '02', name: 'Верховная Жрица', image: '/images/cards/major/02-TheHighPriestess.webp', description: 'Интуиция, тайна, внутреннее знание' },
-  { id: '03', name: 'Императрица', image: '/images/cards/major/03-TheEmpress.webp', description: 'Плодородие, изобилие, материнство' },
-  { id: '04', name: 'Император', image: '/images/cards/major/04-TheEmperor.webp', description: 'Власть, структура, порядок' },
-  { id: '05', name: 'Иерофант', image: '/images/cards/major/05-TheHierophant.webp', description: 'Традиции, учение, духовность' },
-  { id: '06', name: 'Влюбленные', image: '/images/cards/major/06-TheLovers.webp', description: 'Любовь, выбор, единство' },
-  { id: '07', name: 'Колесница', image: '/images/cards/major/07-TheChariot.webp', description: 'Победа, контроль, движение' },
-  { id: '08', name: 'Сила', image: '/images/cards/major/08-Strength.webp', description: 'Внутренняя сила, терпение, сострадание' },
-  { id: '09', name: 'Отшельник', image: '/images/cards/major/09-TheHermit.webp', description: 'Поиск, самоанализ, внутренний свет' },
-  { id: '10', name: 'Колесо Фортуны', image: '/images/cards/major/10-WheelOfFortune.webp', description: 'Судьба, циклы, перемены' },
-  { id: '11', name: 'Справедливость', image: '/images/cards/major/11-Justice.webp', description: 'Баланс, правда, карма' },
-  { id: '12', name: 'Повешенный', image: '/images/cards/major/12-TheHangedMan.webp', description: 'Жертва, новый взгляд, ожидание' },
-  { id: '13', name: 'Смерть', image: '/images/cards/major/13-Death.webp', description: 'Преобразование, конец, возрождение' },
-  { id: '14', name: 'Умеренность', image: '/images/cards/major/14-Temperance.webp', description: 'Баланс, гармония, терпение' },
-  { id: '15', name: 'Дьявол', image: '/images/cards/major/15-TheDevil.webp', description: 'Соблазн, зависимость, материальность' },
-  { id: '16', name: 'Башня', image: '/images/cards/major/16-TheTower.webp', description: 'Разрушение, освобождение, внезапные перемены' },
-  { id: '17', name: 'Звезда', image: '/images/cards/major/17-TheStar.webp', description: 'Надежда, вдохновение, исцеление' },
-  { id: '18', name: 'Луна', image: '/images/cards/major/18-TheMoon.webp', description: 'Иллюзии, страхи, подсознание' },
-  { id: '19', name: 'Солнце', image: '/images/cards/major/19-TheSun.webp', description: 'Радость, успех, просветление' },
-  { id: '20', name: 'Суд', image: '/images/cards/major/20-Judgement.webp', description: 'Оценка, прощение, новый этап' },
-  { id: '21', name: 'Мир', image: '/images/cards/major/21-TheWorld.webp', description: 'Завершение, достижение, целостность' }
+  { id: '00', name: 'Шут', image: getImagePath('images/cards/major/00-TheFool.webp'), description: 'Начало пути, невинность, спонтанность' },
+  { id: '01', name: 'Маг', image: getImagePath('images/cards/major/01-TheMagician.webp'), description: 'Мастерство, воля, концентрация' },
+  { id: '02', name: 'Верховная Жрица', image: getImagePath('images/cards/major/02-TheHighPriestess.webp'), description: 'Интуиция, тайна, внутреннее знание' },
+  { id: '03', name: 'Императрица', image: getImagePath('images/cards/major/03-TheEmpress.webp'), description: 'Плодородие, изобилие, материнство' },
+  { id: '04', name: 'Император', image: getImagePath('images/cards/major/04-TheEmperor.webp'), description: 'Власть, структура, порядок' },
+  { id: '05', name: 'Иерофант', image: getImagePath('images/cards/major/05-TheHierophant.webp'), description: 'Традиции, учение, духовность' },
+  { id: '06', name: 'Влюбленные', image: getImagePath('images/cards/major/06-TheLovers.webp'), description: 'Любовь, выбор, единство' },
+  { id: '07', name: 'Колесница', image: getImagePath('images/cards/major/07-TheChariot.webp'), description: 'Победа, контроль, движение' },
+  { id: '08', name: 'Сила', image: getImagePath('images/cards/major/08-Strength.webp'), description: 'Внутренняя сила, терпение, сострадание' },
+  { id: '09', name: 'Отшельник', image: getImagePath('images/cards/major/09-TheHermit.webp'), description: 'Поиск, самоанализ, внутренний свет' },
+  { id: '10', name: 'Колесо Фортуны', image: getImagePath('images/cards/major/10-WheelOfFortune.webp'), description: 'Судьба, циклы, перемены' },
+  { id: '11', name: 'Справедливость', image: getImagePath('images/cards/major/11-Justice.webp'), description: 'Баланс, правда, карма' },
+  { id: '12', name: 'Повешенный', image: getImagePath('images/cards/major/12-TheHangedMan.webp'), description: 'Жертва, новый взгляд, ожидание' },
+  { id: '13', name: 'Смерть', image: getImagePath('images/cards/major/13-Death.webp'), description: 'Преобразование, конец, возрождение' },
+  { id: '14', name: 'Умеренность', image: getImagePath('images/cards/major/14-Temperance.webp'), description: 'Баланс, гармония, терпение' },
+  { id: '15', name: 'Дьявол', image: getImagePath('images/cards/major/15-TheDevil.webp'), description: 'Соблазн, зависимость, материальность' },
+  { id: '16', name: 'Башня', image: getImagePath('images/cards/major/16-TheTower.webp'), description: 'Разрушение, освобождение, внезапные перемены' },
+  { id: '17', name: 'Звезда', image: getImagePath('images/cards/major/17-TheStar.webp'), description: 'Надежда, вдохновение, исцеление' },
+  { id: '18', name: 'Луна', image: getImagePath('images/cards/major/18-TheMoon.webp'), description: 'Иллюзии, страхи, подсознание' },
+  { id: '19', name: 'Солнце', image: getImagePath('images/cards/major/19-TheSun.webp'), description: 'Радость, успех, просветление' },
+  { id: '20', name: 'Суд', image: getImagePath('images/cards/major/20-Judgement.webp'), description: 'Оценка, прощение, новый этап' },
+  { id: '21', name: 'Мир', image: getImagePath('images/cards/major/21-TheWorld.webp'), description: 'Завершение, достижение, целостность' }
 ]
 
 /**
@@ -139,7 +140,7 @@ const generateMinorArcanaBySuit = (suit) => {
   
   for (let number = 1; number <= 14; number++) {
     const suitCapitalized = suit.charAt(0).toUpperCase() + suit.slice(1)
-    const imagePath = `/images/cards/minor/${suit}/${suitCapitalized}${String(number).padStart(2, '0')}.webp`
+    const imagePath = getImagePath(`images/cards/minor/${suit}/${suitCapitalized}${String(number).padStart(2, '0')}.webp`)
     
     cards.push({
       id: `${suit}-${number}`,

@@ -33,6 +33,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import GridCard from '../components/cards/GridCard.vue'
+import { getImagePath } from '@/utils/imagePath.js'
 
 const selectedDeckId = ref(1)
 const decks = ref([])
@@ -48,49 +49,49 @@ const loadDecks = () => {
       id: 1,
       name: 'Классическая',
       description: 'Традиционные карты Таро',
-      image: '/images/cards/major/00-TheFool.webp'
+      image: getImagePath('images/cards/major/00-TheFool.webp')
     },
     {
       id: 2,
       name: 'Современная',
       description: 'Современный дизайн',
-      image: '/images/cards/major/01-TheMagician.webp'
+      image: getImagePath('images/cards/major/01-TheMagician.webp')
     },
     {
       id: 3,
       name: 'Мистическая',
       description: 'Темная мистика',
-      image: '/images/cards/major/02-TheHighPriestess.webp'
+      image: getImagePath('images/cards/major/02-TheHighPriestess.webp')
     },
     {
       id: 4,
       name: 'Цветочная',
       description: 'Нежные цветочные мотивы',
-      image: '/images/cards/major/03-TheEmpress.webp'
+      image: getImagePath('images/cards/major/03-TheEmpress.webp')
     },
     {
       id: 5,
       name: 'Абстрактная',
       description: 'Современное искусство',
-      image: '/images/cards/major/04-TheEmperor.webp'
+      image: getImagePath('images/cards/major/04-TheEmperor.webp')
     },
     {
       id: 6,
       name: 'Винтажная',
       description: 'Ретро стиль',
-      image: '/images/cards/major/05-TheHierophant.webp'
+      image: getImagePath('images/cards/major/05-TheHierophant.webp')
     },
     {
       id: 7,
       name: 'Минималистичная',
       description: 'Простота и элегантность',
-      image: '/images/cards/major/06-TheLovers.webp'
+      image: getImagePath('images/cards/major/06-TheLovers.webp')
     },
     {
       id: 8,
       name: 'Фэнтези',
       description: 'Миры фэнтези',
-      image: '/images/cards/major/07-TheChariot.webp'
+      image: getImagePath('images/cards/major/07-TheChariot.webp')
     }
   ]
 }
