@@ -52,7 +52,7 @@ export default {
         'neon-glow': 'neon-glow 2s ease-in-out infinite alternate',
         'star-twinkle': 'star-twinkle 3s ease-in-out infinite',
         'pulse-glow': 'pulse-glow 1.5s ease-in-out infinite',
-        'float-particles': 'float-particles 3s ease-in-out infinite',
+        'float-particles': 'float-particles 4s ease-in-out infinite alternate',
       },
       keyframes: {
         'neon-glow': {
@@ -70,13 +70,12 @@ export default {
           '50%': { opacity: '1' },
         },
         'pulse-glow': {
-          '0%, 100%': { opacity: '0.5' },
+          '0%, 100%': { opacity: '0.6' },
           '50%': { opacity: '1' },
         },
         'float-particles': {
-          '0%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-5px)' },
-          '100%': { transform: 'translateY(0px)' },
+          '0%': { transform: 'translateY(0)' },
+          '100%': { transform: 'translateY(-10px)' },
         },
       },
     },

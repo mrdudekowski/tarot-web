@@ -1,26 +1,28 @@
 <template>
-  <div class="relative w-full h-full">
-    <!-- Заглушка (показывается, пока изображение не загружено) -->
-    <div v-if="!isLoaded" class="skeleton-card">
-      <div class="skeleton-particles"></div>
-      <div class="skeleton-image"></div>
+  <div class="relative aspect-[3/4]">
+    <!-- Заглушка -->
+    <div v-if="isLoading" class="absolute inset-0 bg-loona-card-gradient rounded-xl overflow-hidden z-10">
+      <!-- Мерцающий градиент -->
+      <div class="w-full h-full bg-gradient-to-br from-loona-purple to-loona-dark animate-pulse-glow"></div>
+      <!-- Частицы (опционально) -->
+      <div class="absolute inset-0 bg-gradient-to-b from-transparent via-loona-purple/20 to-transparent opacity-20 animate-float-particles pointer-events-none"></div>
     </div>
 
-    <!-- Реальное изображение (показывается после загрузки) -->
-    <img 
+    <!-- Изображение -->
+    <img
       ref="imgElement"
-      :src="src" 
+      :src="error ? '/images/placeholders/card-placeholder.webp' : src"
       :alt="alt"
-      @load="onImageLoad"
-      @error="onImageError"
-      :class="{ 'opacity-0': !isLoaded }"
+      @load="onLoad"
+      @error="onError"
+      :class="{ 'opacity-0': isLoading }"
       class="w-full h-full object-contain rounded-xl transition-opacity duration-300"
     />
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, nextTick } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 
 const props = defineProps({
   src: {
@@ -33,63 +35,62 @@ const props = defineProps({
   }
 })
 
+const isLoading = ref(true)
+const error = ref(false)
 const isLoaded = ref(false)
 const imgElement = ref(null)
+let timer = null
+let minDelayPassed = false
 
-const onImageLoad = () => {
+const onLoad = () => {
+  error.value = false
   isLoaded.value = true
+  
+  // Если минимальная задержка уже прошла, скрываем заглушку сразу
+  if (minDelayPassed) {
+    isLoading.value = false
+  }
+  // Иначе заглушка скроется после срабатывания таймера
 }
 
-const onImageError = () => {
-  // Если изображение не загрузилось, оставляем заглушку
-  // Можно добавить обработку ошибок при необходимости
-  console.warn('Failed to load image:', props.src)
+const onError = () => {
+  error.value = true
+  isLoading.value = false
+  if (timer) {
+    clearTimeout(timer)
+    timer = null
+  }
 }
 
-// Проверяем, если изображение уже загружено в кэше браузера
-onMounted(async () => {
-  await nextTick()
-  if (imgElement.value && imgElement.value.complete) {
-    isLoaded.value = true
+onMounted(() => {
+  // Минимальная задержка для видимости заглушки (200ms)
+  timer = setTimeout(() => {
+    minDelayPassed = true
+    // Если изображение уже загружено, скрываем заглушку
+    if (isLoaded.value) {
+      isLoading.value = false
+    }
+    timer = null
+  }, 200)
+  
+  // Проверяем, если изображение уже в кэше браузера
+  // Используем nextTick чтобы убедиться, что img элемент уже в DOM
+  setTimeout(() => {
+    if (imgElement.value && imgElement.value.complete) {
+      isLoaded.value = true
+      // Если минимальная задержка уже прошла, скрываем заглушку
+      if (minDelayPassed) {
+        isLoading.value = false
+      }
+      // Иначе заглушка скроется после срабатывания таймера
+    }
+  }, 0)
+})
+
+onUnmounted(() => {
+  if (timer) {
+    clearTimeout(timer)
+    timer = null
   }
 })
 </script>
-
-<style scoped>
-.skeleton-card {
-  @apply absolute inset-0 bg-loona-dark border border-loona-purple rounded-xl overflow-hidden;
-  z-index: 1;
-}
-
-.skeleton-particles {
-  @apply absolute inset-0 pointer-events-none;
-  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(74,0,255,0.1) 50%, rgba(0,0,0,0) 100%);
-  animation: float-particles 3s ease-in-out infinite;
-}
-
-.skeleton-image {
-  @apply w-full h-full aspect-[3/4] bg-gradient-to-br from-loona-purple via-loona-purple-dark to-loona-dark rounded-xl;
-  animation: pulse-glow 1.5s ease-in-out infinite;
-}
-
-@keyframes pulse-glow {
-  0%, 100% {
-    opacity: 0.5;
-  }
-  50% {
-    opacity: 1;
-  }
-}
-
-@keyframes float-particles {
-  0% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-5px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
-}
-</style>

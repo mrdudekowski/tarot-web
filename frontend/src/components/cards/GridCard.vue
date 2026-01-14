@@ -9,11 +9,11 @@
     @click="$emit('click', $event)"
   >
     <div class="aspect-[3/4] flex items-center justify-center p-2 bg-loona-card-bg">
-      <img
+      <ImageSkeleton
         v-if="image"
         :src="image"
         :alt="title || 'Card'"
-        class="w-full h-full object-contain"
+        class="w-full h-full"
       />
     </div>
     <div class="p-3">
@@ -34,6 +34,8 @@
 </template>
 
 <script setup>
+import ImageSkeleton from './ImageSkeleton.vue'
+
 const props = defineProps({
   image: {
     type: String,
