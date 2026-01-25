@@ -9,6 +9,8 @@
       <div class="w-full h-full bg-gradient-to-br from-loona-purple to-loona-dark animate-pulse-glow" />
       <!-- Частицы (опционально) -->
       <div class="absolute inset-0 bg-gradient-to-b from-transparent via-loona-purple/20 to-transparent opacity-20 animate-float-particles pointer-events-none" />
+      <!-- Солнечные частицы (маленькие точки) -->
+      <div class="absolute inset-0 sunflare-particles pointer-events-none" />
     </div>
 
     <!-- Изображение -->
@@ -106,3 +108,41 @@ onUnmounted(() => {
   }
 })
 </script>
+
+<style scoped>
+.sunflare-particles {
+  background-image: 
+    radial-gradient(2px 2px at 20% 30%, rgba(230, 0, 255, 0.8), transparent),
+    radial-gradient(2px 2px at 60% 70%, rgba(147, 112, 219, 0.6), transparent),
+    radial-gradient(1px 1px at 50% 50%, rgba(230, 0, 255, 0.9), transparent),
+    radial-gradient(1px 1px at 80% 10%, rgba(147, 112, 219, 0.7), transparent),
+    radial-gradient(2px 2px at 90% 50%, rgba(230, 0, 255, 0.5), transparent),
+    radial-gradient(1px 1px at 33% 60%, rgba(147, 112, 219, 0.8), transparent),
+    radial-gradient(1px 1px at 66% 20%, rgba(230, 0, 255, 0.6), transparent),
+    radial-gradient(2px 2px at 10% 80%, rgba(147, 112, 219, 0.7), transparent),
+    radial-gradient(1px 1px at 40% 90%, rgba(230, 0, 255, 0.5), transparent),
+    radial-gradient(2px 2px at 70% 40%, rgba(147, 112, 219, 0.6), transparent),
+    radial-gradient(1px 1px at 25% 15%, rgba(230, 0, 255, 0.8), transparent),
+    radial-gradient(1px 1px at 75% 85%, rgba(147, 112, 219, 0.7), transparent),
+    radial-gradient(2px 2px at 15% 55%, rgba(230, 0, 255, 0.6), transparent),
+    radial-gradient(1px 1px at 85% 25%, rgba(147, 112, 219, 0.8), transparent),
+    radial-gradient(2px 2px at 45% 75%, rgba(230, 0, 255, 0.5), transparent),
+    radial-gradient(1px 1px at 55% 35%, rgba(147, 112, 219, 0.7), transparent),
+    radial-gradient(1px 1px at 30% 95%, rgba(230, 0, 255, 0.6), transparent),
+    radial-gradient(2px 2px at 95% 65%, rgba(147, 112, 219, 0.5), transparent),
+    radial-gradient(1px 1px at 5% 45%, rgba(230, 0, 255, 0.8), transparent);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  animation: sunflare-twinkle 3s ease-in-out infinite;
+  opacity: 0.6;
+}
+
+@keyframes sunflare-twinkle {
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+</style>
