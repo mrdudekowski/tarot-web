@@ -7,10 +7,10 @@
       :transition="{ duration: 0.5 }"
       class="mb-6"
     >
-      <h1 class="text-2xl font-press-start mb-2 bg-clip-text text-transparent bg-gradient-to-r from-loona-neon to-loona-glow-purple neon-text">
+      <h1 class="text-center text-2xl font-press-start mb-2 bg-clip-text text-transparent bg-gradient-to-r from-loona-neon to-loona-glow-purple neon-text">
         Энциклопедия Таро
       </h1>
-      <p class="text-loona-text-secondary text-sm">
+      <p class="text-center text-loona-text-secondary text-sm">
         Изучите значение каждой карты
       </p>
     </div>
@@ -63,7 +63,7 @@
       :transition="{ duration: 0.3 }"
       class="mb-4 p-3 bg-loona-card-gradient rounded-xl border border-loona-purple"
     >
-      <h2 class="text-lg font-bold bg-clip-text text-transparent bg-loona-neon-gradient neon-text">
+      <h2 class="text-center text-lg font-bold bg-clip-text text-transparent bg-loona-neon-gradient neon-text">
         {{ description.title }}
       </h2>
       <p class="text-sm text-loona-text-secondary mt-1">

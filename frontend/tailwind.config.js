@@ -21,7 +21,7 @@ export default {
         'loona-orange-light': '#ff9e00',
         'loona-text-primary': '#c3c3c3',
         'loona-text-secondary': '#7a7a7a',
-        'loona-border': '#8a2be2',
+        'loona-border': '#553177',
         'loona-glow-purple': '#9370db',
       },
       backgroundImage: {
@@ -34,8 +34,8 @@ export default {
         'loona-card-bg': 'rgba(13, 13, 43, 0.5)',
       },
       boxShadow: {
-        'neon': '0 0 10px #e600ff, 0 0 20px #9370db',
-        'neon-lg': '0 0 20px #e600ff, 0 0 40px #9370db',
+        'neon': '0 0 10px #5f006961, 0 0 20px #160045f0;',
+        'neon-lg': '0 0 10px #5f006961, 0 0 30px #160045f0;',
         'card': '0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px #8a2be2',
         'button': '0 4px 15px rgba(230, 0, 255, 0.3)',
       },

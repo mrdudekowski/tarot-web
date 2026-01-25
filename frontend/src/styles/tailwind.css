@@ -47,4 +47,21 @@
   .neon-glow {
     box-shadow: 0 0 10px #e600ff52, 0 0 20px #9370db;
   }
+
+  .shadow-card {
+    box-shadow: 0 0 10px #7a008861, 0 0 20px #1e025af0 !important;
+    border-color: rgb(95, 57, 131) !important;
+  }
+
+  .shadow-neon {
+    box-shadow: 0 0 10px #7a00888a, 0 0 20px #1e025a8f !important;
+  }
+
+  .bg-loona-purple {
+    background-color: #e9c5ee !important;
+  }
+
+  .bg-loona-neon {
+    background-color: #cf10e4 !important;
+  }
 }
