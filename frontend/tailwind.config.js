@@ -21,7 +21,7 @@ export default {
         'loona-orange-light': '#ff9e00',
         'loona-text-primary': '#c3c3c3',
         'loona-text-secondary': '#7a7a7a',
-        'loona-border': '#553177',
+        'loona-border': '#9a00ab',
         'loona-glow-purple': '#9370db',
       },
       backgroundImage: {
