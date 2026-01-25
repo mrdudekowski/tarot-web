@@ -4,7 +4,7 @@
     :initial="{ scale: 0.9, opacity: 0 }"
     :enter="{ scale: 1, opacity: 1 }"
     :transition="{ duration: 0.5, delay }"
-    class="w-full max-w-[320px] rounded-[20px] overflow-hidden border border-loona-purple shadow-neon bg-loona-card-gradient relative mx-auto"
+    class="w-full max-w-[320px] rounded-[20px] overflow-hidden border border-loona-purple bg-loona-card-gradient relative mx-auto"
   >
     <div class="aspect-[3/4] flex items-center justify-center p-2 bg-loona-card-bg">
       <img
@@ -21,13 +21,13 @@
     <div class="p-3">
       <h3
         v-if="card?.name"
-        class="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-loona-neon to-loona-glow-purple neon-text"
+        class="text-center text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-loona-neon to-loona-glow-purple neon-text"
       >
         {{ card.name }}
       </h3>
       <p
         v-if="card?.description"
-        class="text-loona-text-primary text-sm mt-1"
+        class="text-center text-loona-text-primary text-sm mt-1"
       >
         {{ card.description }}
       </p>
