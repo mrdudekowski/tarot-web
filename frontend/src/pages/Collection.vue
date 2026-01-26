@@ -7,10 +7,10 @@
       :transition="{ duration: 0.5 }"
       class="mb-6"
     >
-      <h1 class="text-2xl font-press-start mb-2 bg-clip-text text-transparent bg-gradient-to-r from-loona-neon to-loona-glow-purple neon-text">
+      <h1 class="text-center text-2xl font-press-start mb-2 bg-clip-text text-transparent bg-gradient-to-r from-loona-neon to-loona-glow-purple neon-text">
         Коллекция Колод
       </h1>
-      <p class="text-loona-text-secondary text-sm">
+      <p class="text-center text-loona-text-secondary text-sm">
         Выберите дизайн колоды Таро
       </p>
     </div>
