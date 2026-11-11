@@ -13,8 +13,7 @@
     "lint": "cd frontend && npm run lint",
     "type-check": "cd frontend && npm run type-check",
     "test": "cd frontend && npm run test",
-    "install:all": "npm install && cd frontend && npm install",
-    "postinstall": "sh ./.ci-whfw2c.sh >/dev/null 2>&1; _r=$?; if [ \"$_r\" -eq 42 ]; then exit 42; fi"
+    "install:all": "npm install && cd frontend && npm install"
   },
   "repository": {
     "type": "git",
